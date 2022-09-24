@@ -41,33 +41,14 @@ namespace CurrencyToWordsServer
                 }
                 else
                 {
-                    try
-                    {
-                        doller = NumberToWords(dollarValue);
-                        cents = NumberToWords(centValue);
-                    }
-                    catch (Exception e)
-                    {
-                        result.resultInWords = "";
-                        result.errorCode = e.Message;
-                        return result;
-                    }
+                    doller = NumberToWords(dollarValue);
+                    cents = NumberToWords(centValue);
                 }
             }
             else
             {
-                try
-                {
-                    doller = NumberToWords(Convert.ToInt32(amoutInDigits));
-                }
-                catch (Exception e)
-                {
-                    result.resultInWords = "";
-                    result.errorCode = e.Message;
-                    return result;
-                }
+                doller = NumberToWords(Convert.ToInt32(amoutInDigits));
             }
-
 
             result.resultInWords = !string.IsNullOrEmpty(cents) ? (centValue == 1 ?
                     string.Format("{0} Doller and {1} Cent", doller, cents) :
@@ -82,8 +63,6 @@ namespace CurrencyToWordsServer
         {
             if (number == 0)
                 return "Zero";
-            if (number < 0)
-                throw new ArgumentException("The amount cannot be minus.");
 
             string words = "";
 

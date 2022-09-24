@@ -8,9 +8,9 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <Button x:Name="convert" Content="Convert" HorizontalAlignment="Left" Margin="311,64,0,0" VerticalAlignment="Top" Width="119" Click="convert_Click" Height="27" FontSize="15" FontWeight="Bold"/>
-        <TextBox x:Name="moneyInNumbers" HorizontalAlignment="Left" Height="23" Margin="37,68,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="moneyInNumbers" HorizontalAlignment="Left" Height="23" Margin="37,68,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"  PreviewTextInput="moneyInNumbers_PreviewTextInput"/>
         <TextBlock HorizontalAlignment="Left" Margin="37,43,0,0" TextWrapping="Wrap" Text="Amount of money in numbers:" VerticalAlignment="Top" FontWeight="Bold" FontSize="15"/>
-        <TextBox x:Name="moneyInWords" HorizontalAlignment="Left" Height="59" Margin="37,179,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="317"/>
+        <TextBox x:Name="moneyInWords" HorizontalAlignment="Left" Height="59" Margin="37,179,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="317" IsEnabled="False" />
         <TextBlock HorizontalAlignment="Left" Height="23" Margin="37,151,0,0" TextWrapping="Wrap" Text="Amount of money in words:" VerticalAlignment="Top" Width="199" FontWeight="Bold" FontSize="15"/>
 
     </Grid>

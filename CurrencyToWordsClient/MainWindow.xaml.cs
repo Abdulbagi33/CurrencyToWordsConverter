@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -28,27 +29,39 @@ namespace CurrencyToWordsClient
 
         private void convert_Click(object sender, RoutedEventArgs e)
         {
-
             double amountInDigits = Convert.ToDouble(moneyInNumbers.Text.Replace(",", "."));
-            if (moneyInNumbers.Text.Contains("."))
+
+            CurrencyToWordsConverterClient client = new CurrencyToWordsConverterClient();
+            var amountInwords = client.CurrencyToWords(amountInDigits);
+            if (amountInwords.errorCode != "")
             {
-                MessageBox.Show("Please change the sperator to a comma.", null, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(amountInwords.errorCode, null, MessageBoxButton.OK, MessageBoxImage.Error);
+                moneyInWords.Text = amountInwords.resultInWords;
             }
             else
             {
-                CurrencyToWordsConverterClient client = new CurrencyToWordsConverterClient();
-                var amountInwords = client.CurrencyToWords(amountInDigits);
-                if (amountInwords.errorCode != "")
-                {
-                    MessageBox.Show(amountInwords.errorCode, null, MessageBoxButton.OK, MessageBoxImage.Error);
-                    moneyInWords.Text = amountInwords.resultInWords;
-                }
-                else
-                {
-                    moneyInWords.Text = amountInwords.resultInWords;
-                }
-                client.Close();
+                moneyInWords.Text = amountInwords.resultInWords;
             }
+            client.Close();
+
+        }
+
+        private void moneyInNumbers_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+
+            foreach (var ch in e.Text)
+            {
+                if (!(Char.IsDigit(ch) || ch.Equals(',')))
+                {
+                    e.Handled = true;
+                    break;
+                }
+            }
+            if (e.Text.Contains(","))
+                if (((TextBox)sender).Text.IndexOf(e.Text) > -1)
+                {
+                    e.Handled = true;
+                }
 
         }
     }
